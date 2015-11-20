@@ -33,8 +33,6 @@ void DrawCube(DrawShape shape);
 void DrawCylinder(DrawShape shape);
 void DrawSphere(DrawShape shape);
 int day;
-
-
 Sphere SPHERE;
 Cylinder CYLINDER;
 void SetMaterial(Material material);
@@ -53,7 +51,6 @@ vec4 sla(1,1,1,1);
 vec4 sld(0.0, 0.0,0.0, 1.0);
 vec4 sls(0.5, 0.5, 0.5, 1.0);
 Light sunlight = Light(lpos,sla,sld,sls,false);
-
 vec4 la = vec4(0.1,0.1,0.1,0.0);
 vec4 ld = vec4(0.5, 0.5, 0.5, 1.0);
 vec4 ls = vec4(0.5, 0.5, 0.5, 1.0);

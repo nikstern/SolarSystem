@@ -1,15 +1,17 @@
 //
-//  Cylinder.hpp
+//  Shapes.hpp
 //  GraphicsFinalProject
 //
-//  Created by Nick Stern on 11/18/15.
+//  Created by Nick Stern on 11/19/15.
 //  Copyright © 2015 Dolan-Stern, Nicholas. All rights reserved.
 //
 
-#ifndef Cylinder_hpp
-#define Cylinder_hpp
+#ifndef Shapes_hpp
+#define Shapes_hpp
 
 #include <stdio.h>
+
+ /* Shapes_hpp */
 #include "Angel.h"
 typedef Angel::vec4  point4;
 class Cylinder {
