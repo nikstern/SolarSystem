@@ -108,7 +108,7 @@ public:
 private:
     float const Y = 1;
     float const Z = 1.0;
-    float const R = 2000.5;
+    float const R = 10.5;
     float const DEFAULT_EYE_X = R * (cos(Y)*cos(Z));
     float const DEFAULT_EYE_Y = R * sin(Z);
     float const DEFAULT_EYE_Z = R * (cos(Z)*sin(Y));

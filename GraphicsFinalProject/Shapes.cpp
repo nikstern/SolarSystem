@@ -146,21 +146,21 @@ Sphere::Sphere()
         float t0Prime;
         float t1Prime;
         GLfloat const t0 = 2 * M_PI * (t0Prime=((float)n / SEGMENTS));
-        GLfloat const t1 = 2 * M_PI * (t0Prime=((float)(n+1) / SEGMENTS));
+        GLfloat const t1 = 2 * M_PI * (t1Prime=((float)(n+1) / SEGMENTS));
         
         points[index].x = 0.0;
         points[index].y = TOP;
         points[index].z = 0.0;
         points[index].w = 1.0;
         normals[index] = vec3(points[index].x, points[index].y, points[index].z);
-        
+        texture[index] = vec2( 0.0, 0.0);
         index++;
         points[index].x = cos(PH_TOP) * cos(t0) * r;
         points[index].y = sin(PH_TOP) * r;
         points[index].z = cos(PH_TOP) * sin(t0) * r;
         points[index].w = 1.0;
         normals[index] = vec3(points[index].x, points[index].y, points[index].z);
-        
+        texture[index] = vec2(t0/(2*M_PI),-(PH_TOP-M_PI/2.0)/M_PI);
         index++;
         points[index].x = cos(PH_TOP) * cos(t1) * r;
         points[index].y = sin(PH_TOP) * r;
@@ -168,6 +168,7 @@ Sphere::Sphere()
         points[index].w = 1.0;
         normals[index] = vec3(points[index].x, points[index].y, points[index].z);
         index++;
+         texture[index] = vec2(t1/(2*M_PI),-(PH_TOP-M_PI/2.0)/M_PI);
     }
     
     for( int m = 1; m < SEGMENTS-1; m++ )
@@ -205,7 +206,7 @@ Sphere::Sphere()
             vertices[num].z = cos(p0)*sin(t0) * r;
             vertices[num++].w = 1.0;
             
-            index = quad(t0Prime, t1Prime, p0Prime, p1Prime, index);
+            index = quad(t0/(2*M_PI), t1/(2*M_PI),  -(p0-M_PI/2.0)/M_PI,  -(p1-M_PI/2.0)/M_PI, index);
         }
     }
     
@@ -219,13 +220,14 @@ Sphere::Sphere()
         points[index].z = 0.0;
         points[index].w = 1.0;
         normals[index] = vec3(points[index].x, points[index].y, points[index].z);
-        
+        texture[index] = vec2( 0.0, 1.0);
         index++;
         points[index].x = cos(PH_BOTTOM) * cos(t0) * r;
         points[index].y = sin(PH_BOTTOM) * r;
         points[index].z = cos(PH_BOTTOM) * sin(t0) * r;
         points[index].w = 1.0;
         normals[index] = vec3(points[index].x, points[index].y, points[index].z);
+        texture[index] = vec2(t0/(2*M_PI),-(PH_BOTTOM-M_PI/2.0)/M_PI);
         
         index++;
         points[index].x = cos(PH_BOTTOM) * cos(t1) * r;
@@ -233,8 +235,9 @@ Sphere::Sphere()
         points[index].z = cos(PH_BOTTOM) * sin(t1) * r;
         points[index].w = 1.0;
         normals[index] = vec3(points[index].x, points[index].y, points[index].z);
-        
+        texture[index] = vec2(t1/(2*M_PI),-(PH_BOTTOM-M_PI/2.0)/M_PI);
         index++;
+        
     }
     
 }
@@ -247,21 +250,27 @@ int Sphere::quad(float t0, float t1, float p0, float p1, int index)
     int CORNER_FOUR = 3;
     points[index] = vertices[CORNER_ONE];
     normals[index] = vec3(vertices[CORNER_ONE].x, vertices[CORNER_ONE].y, vertices[CORNER_ONE].z);
+    texture[index] = vec2( t0, -p1);
     index++;
     points[index] = vertices[CORNER_TWO];
     normals[index] = vec3(vertices[CORNER_TWO].x, vertices[CORNER_TWO].y, vertices[CORNER_TWO].z);
+    texture[index] = vec2( t1, -p1);
     index++;
     points[index] = vertices[CORNER_THREE];
     normals[index] = vec3(vertices[CORNER_THREE].x, vertices[CORNER_THREE].y, vertices[CORNER_THREE].z);
+    texture[index] = vec2( t1, -p0);
     index++;
     points[index] = vertices[CORNER_ONE];
     normals[index] = vec3(vertices[CORNER_ONE].x, vertices[CORNER_ONE].y, vertices[CORNER_ONE].z);
+    texture[index] = vec2( t0, -p1);
     index++;
     points[index] = vertices[CORNER_THREE];
     normals[index] = vec3(vertices[CORNER_THREE].x, vertices[CORNER_THREE].y, vertices[CORNER_THREE].z);
+    texture[index] = vec2( t1, -p1);
     index++;
     points[index] = vertices[CORNER_FOUR];
     normals[index] = vec3(vertices[CORNER_FOUR].x, vertices[CORNER_FOUR].y, vertices[CORNER_FOUR].z);
+    texture[index] = vec2( t0, -p0);
     index++;
     return index;
 }
